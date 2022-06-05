@@ -50,9 +50,12 @@ namespace Core
 
 			// ObjectPool
 			_projectilePool = new ObjectPool<GameObject>(() => Instantiate(_projectilePrefab),
-				(obj) => obj.SetActive(true),
-				(obj) => obj.SetActive(false),
-				Destroy, false, 10, 10); // custom
+				actionOnGet: (obj) => obj.SetActive(true),
+				actionOnRelease: (obj) => obj.SetActive(false),
+				Destroy,
+				collectionCheck: false,
+				defaultCapacity: 10,
+				maxSize: 10); // custom
 
 			_asteroidsPool = new ObjectPool<GameObject>(createFunc: () => Instantiate(_asteroidPrefab),
 				actionOnGet: (obj) => obj.SetActive(true),
@@ -110,9 +113,9 @@ namespace Core
 					view.Controller = controller;
 				}
 
-				var duration = _asteroidModelAsset.SpawnDuration;
-				var asteroidCoroutine = ReleaseFromPoolAfter(_asteroidsPool, duration, asteroid);
-				StartCoroutine(asteroidCoroutine);
+				// Время до поражения
+				/*var asteroidCoroutine = ReleaseFromPoolAfter(_asteroidsPool, duration, asteroid);*/
+				/*StartCoroutine(asteroidCoroutine);*/
 			}
 		}
 

@@ -61,26 +61,9 @@ namespace Views
 		{
 			var randomEdge = Random.Range(0, 2);
 
-			if (randomEdge == 0)
-			{
-				// ToDo: Реализовать спавн астероидов правильный
-				var pos =_mainCamera.ViewportToWorldPoint(new Vector2(Random.Range(0, 2) * 2 - 1, Random.value));
-				return pos;
-			}
-
-			//var pointOnEdgeY = new Vector2(Random.Range(0f, 1f), Random.Range(0, 2) * 2 - 1);
-			var pos1=_mainCamera.ViewportToWorldPoint(new Vector2(Random.value, Random.Range(0, 2) * 2 - 1));
-			return pos1;
-		}
-
-		public Vector2 GetSpawnPointNear(float spawnDistance, Vector2 position)
-		{
-			var spawnDirection = Random.insideUnitCircle.normalized;
-			var spawnPoint = spawnDirection * spawnDistance;
-
-			spawnPoint += position;
-
-			return spawnPoint;
+			return _mainCamera.ViewportToWorldPoint(randomEdge == 0
+				? new Vector2(Random.Range(0, 2), Random.value)
+				: new Vector2(Random.value, Random.Range(0, 2)));
 		}
 	}
 }
