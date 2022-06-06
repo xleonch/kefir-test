@@ -23,4 +23,10 @@ public class AsteroidView : MonoBehaviour
 		transform.position = Controller.Move(transform.position, _direction);
 		_gameViewUtils.ScreenWarp(gameObject);
 	}
+
+	private void OnTriggerEnter2D()
+	{
+		gameObject.SetActive(false);
+		// ToDo: Add to the object pool two copies of asteroid
+	}
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using Controllers.Player;
 using Models.Player;
 using UnityEngine.InputSystem;
+using Views.Projectile;
 
 namespace Views.Player
 {
@@ -38,6 +39,14 @@ namespace Views.Player
 			//Debug.Log(Model.CurrentRotation.eulerAngles.z);
 
 			_gameViewUtils.ScreenWarp(gameObject);
+		}
+
+		private void OnTriggerEnter2D(Collider2D col)
+		{
+			if (!col.TryGetComponent(out ProjectileView _))
+			{
+				gameObject.SetActive(false);
+			}
 		}
 
 		public void OnAccelerate(InputAction.CallbackContext context) => Model.IsMoving = context.ReadValue<float>();

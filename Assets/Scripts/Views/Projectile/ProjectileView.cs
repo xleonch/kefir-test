@@ -1,7 +1,7 @@
-using System;
 using Controllers.Projectile;
 using Models.Projectile;
 using UnityEngine;
+using Views.Player;
 
 namespace Views.Projectile
 {
@@ -25,6 +25,14 @@ namespace Views.Projectile
 			transform.position = Controller.Move(position, transform.up);
 
 			_gameViewUtils.ScreenWarp(gameObject);
+		}
+
+		private void OnTriggerEnter2D(Collider2D col)
+		{
+			if (!col.TryGetComponent(out PlayerView _))
+			{
+				gameObject.SetActive(false);
+			}
 		}
 	}
 }
